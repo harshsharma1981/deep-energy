@@ -1,0 +1,25 @@
+name: Unzip Files
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Unzip file
+        run: |
+          mkdir extracted
+          unzip dist.zip -d extracted/
+          
+      - name: Commit extracted files
+        run: |
+          git add extracted/
+          git commit -m "Unzipped files"
+          git push
